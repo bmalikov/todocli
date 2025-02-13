@@ -7,7 +7,7 @@ ArrayList todoList = new ArrayList();
 while(true) {
 
     Console.Write("Add, Remove, Complete, Edit, Show, Quit: ");
-    var userInput = Console.ReadLine();
+    var userInput = Console.ReadLine().ToLower();
 
     if (userInput == "Add") {
         Console.Write("Enter new item: ");
