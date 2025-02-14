@@ -32,6 +32,28 @@ class Program
         todoList[itemToEdit - 1] = editedItem;
     }
 
+    static int TaskIsDone(ArrayList todoList, int completed)
+    {
+
+        foreach (string item in todoList)
+        {
+            if (item.Contains("--DONE"))
+            {
+                completed = completed + 1;
+            }
+        }
+        return completed;
+    }
+
+    static int CountTasks(ArrayList todoList, int tasks)
+    {
+        foreach (string item in todoList)
+        {
+            tasks = tasks + 1;
+        }
+
+        return tasks;
+    }
     static void ShowItems(ArrayList todoList)
     {
         for (int i = 0; i < todoList.Count; i++)
@@ -46,8 +68,11 @@ class Program
 
         ArrayList todoList = new ArrayList();
 
+
         while (true)
         {
+            int completed = 0;
+            int tasks = 0;
 
             Console.Write("Add, Remove, Complete, Edit, Show, Quit: ");
             var userInput = Console.ReadLine().ToLower();
@@ -81,6 +106,13 @@ class Program
             {
                 Console.WriteLine("Unknown command!!!");
             }
+
+            completed = TaskIsDone(todoList, completed);
+
+            tasks = CountTasks(todoList, tasks);
+
+            Console.WriteLine("Tasks completed: " + completed + "/" + tasks);
         }
+
     }
 }
