@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d2vYipriTTav4VTUVgWTFXmkBMwQHc+3w716qAZ9/UrdilZ4aao52cqLHWIml530B1rl5EGaiXa/fx7CmsrHkg==",
+  "dgSpecHash": "dFf87Tl/qtMOoMCqF3yWM/a2gAzJcN1JvTgsJlSuAE6kST/ilReBhDtv8nRcvFkdJNE9WVcF5gJLcW80ISYCRg==",
   "success": true,
-  "projectFilePath": "/home/boris/Desktop/todoCli/todoCli.csproj",
+  "projectFilePath": "/home/boris/Distrobox/dotnet8/todocli/todoCli.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

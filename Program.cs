@@ -2,31 +2,34 @@
 
 class Program
 {
-    static void AddItem(ArrayList todoList)
+    static void AddItem(ArrayList todoList, string userInput)
     {
-        Console.Write("Enter new item: ");
-        var item = Console.ReadLine();
-        todoList.Add(item);
+        if(userInput.Length < 4) 
+        {
+            Console.WriteLine("Please add new item after add...");
+        }
+        else 
+        {
+            var item = userInput[4..]; // [4..] uzima od 4 znaka nadalje
+            todoList.Add(item);
+        }
     }
 
-    static void RemoveItem(ArrayList todoList)
+    static void RemoveItem(ArrayList todoList, string userInput)
     {
-        Console.Write("Enter index of item to remove: ");
-        var itemToRemove = int.Parse(Console.ReadLine());
+        var itemToRemove = int.Parse(userInput[7..]);
         todoList.RemoveAt(itemToRemove - 1);
     }
 
-    static void IsComplete(ArrayList todoList)
+    static void IsComplete(ArrayList todoList, string userInput)
     {
-        Console.Write("Enter index of completed item: ");
-        var itemIsComplete = int.Parse(Console.ReadLine());
+        var itemIsComplete = int.Parse(userInput[8..]);
         todoList[itemIsComplete - 1] = todoList[itemIsComplete - 1] + " --DONE";
     }
 
-    static void EditItem(ArrayList todoList)
+    static void EditItem(ArrayList todoList, string userInput)
     {
-        Console.Write("Enter index of item to edit: ");
-        var itemToEdit = int.Parse(Console.ReadLine());
+        var itemToEdit = int.Parse(userInput[4..]);
         Console.Write("Enter new item: ");
         var editedItem = Console.ReadLine();
         todoList[itemToEdit - 1] = editedItem;
@@ -77,21 +80,25 @@ class Program
             Console.Write("Add, Remove, Complete, Edit, Show, Quit: ");
             var userInput = Console.ReadLine().ToLower();
 
-            if (userInput == "add")
+            if (userInput.StartsWith("add"))
             {
-                AddItem(todoList);
+                AddItem(todoList, userInput);
+                ShowItems(todoList);
             }
-            else if (userInput == "remove")
+            else if (userInput.StartsWith("remove"))
             {
-                RemoveItem(todoList);
+                RemoveItem(todoList, userInput);
+                ShowItems(todoList);
             }
-            else if (userInput == "complete")
+            else if (userInput.StartsWith("complete"))
             {
-                IsComplete(todoList);
+                IsComplete(todoList, userInput);
+                ShowItems(todoList);
             }
-            else if (userInput == "edit")
+            else if (userInput.StartsWith("edit"))
             {
-                EditItem(todoList);
+                EditItem(todoList, userInput);
+                ShowItems(todoList);
             }
             else if (userInput == "show")
             {
@@ -116,3 +123,10 @@ class Program
 
     }
 }
+
+/*
+TODO:
+
+1. kada odem npr complete mlijeko, sruši se app jer sam napisao mijeko umjesto broja
+
+ */
