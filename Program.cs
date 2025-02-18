@@ -15,7 +15,7 @@ class Program
             int tasks = 0;
 
             Console.Write("Add, Remove, Complete, Edit, Show, Quit: ");
-            var userInput = Console.ReadLine().ToLower();
+            string userInput = Console.ReadLine().ToLower();
 
             if (userInput.StartsWith("add"))
             {
@@ -30,7 +30,7 @@ class Program
             else if (userInput.StartsWith("complete"))
             {
                 TodoActions.IsComplete(todoList, userInput);
-                TodoActions.ShowItems(todoList);
+                TodoActions.ShowItems(todoList); 
             }
             else if (userInput.StartsWith("edit"))
             {

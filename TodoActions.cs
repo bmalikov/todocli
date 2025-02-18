@@ -19,22 +19,51 @@ public class TodoActions
 
     public static void RemoveItem(ArrayList todoList, string userInput)
     {
-        var itemToRemove = int.Parse(userInput[7..]);
-        todoList.RemoveAt(itemToRemove - 1);
+        string itemToRemove = userInput[7..];
+
+        int number; // ovo je potrebno zbog provjere isNumber
+
+        bool isNumber = int.TryParse(itemToRemove, out number); // TryParse vraća true ili false, na ovaj način provjeravam jeli itemToRemove broj, ako nije ispisujem da treba napisati broj
+
+        if(isNumber) {
+            todoList.RemoveAt(int.Parse(itemToRemove) - 1);
+        }
+        else {
+            Console.WriteLine("Enter index of item you want to remove!");
+        }
     }
 
     public static void IsComplete(ArrayList todoList, string userInput)
     {
-        var itemIsComplete = int.Parse(userInput[8..]);
-        todoList[itemIsComplete - 1] = todoList[itemIsComplete - 1] + " --DONE";
+        string itemIsComplete = userInput[8..];
+
+        int number;
+
+        bool isNumber = int.TryParse(itemIsComplete, out number);
+
+        if(isNumber) {
+            todoList[int.Parse(itemIsComplete) - 1] = todoList[int.Parse(itemIsComplete) - 1] + " --DONE";
+        }
+        else {
+            Console.WriteLine("Enter index of item you want to complete!");
+        }  
     }
 
     public static void EditItem(ArrayList todoList, string userInput)
     {
-        var itemToEdit = int.Parse(userInput[4..]);
-        Console.Write("Enter new item: ");
-        var editedItem = Console.ReadLine();
-        todoList[itemToEdit - 1] = editedItem;
+        string itemToEdit = userInput[4..];
+        int number;
+
+        bool isNumber = int.TryParse(itemToEdit, out number);
+
+        if(isNumber) {
+            Console.Write("Enter new item: ");
+            var editedItem = Console.ReadLine();
+            todoList[int.Parse(itemToEdit) - 1] = editedItem;
+        }
+        else {
+            Console.WriteLine("Enter index of item you want to edit!");
+        }
     }
 
     public static int TaskIsDone(ArrayList todoList, int completed)
