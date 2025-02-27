@@ -1,11 +1,15 @@
 ﻿using System.Collections;
+using inputOutput;
 
 namespace todoActions;
 
 public class TodoActions
 {
-    public static void AddItem(ArrayList todoList, string userInput)
+    public static string toFile = "toFile.txt";
+
+    public static void AddItem(List<string> TodoListInFile, string userInput)
     {
+
         if(userInput.Length < 4) 
         {
             Console.WriteLine("Please add new item after add...");
@@ -13,11 +17,12 @@ public class TodoActions
         else 
         {
             var item = userInput[4..]; // [4..] uzima od 4 znaka nadalje
-            todoList.Add(item);
+            TodoListInFile.Add(item);
         }
+        WriteToFile.WriteTodoListItemToFile(TodoListInFile, toFile);
     }
 
-    public static void RemoveItem(ArrayList todoList, string userInput)
+    public static void RemoveItem(List<string> TodoListInFile, string userInput)
     {
         string itemToRemove = userInput[7..];
 
@@ -26,14 +31,16 @@ public class TodoActions
         bool isNumber = int.TryParse(itemToRemove, out number); // TryParse vraća true ili false, na ovaj način provjeravam jeli itemToRemove broj, ako nije ispisujem da treba napisati broj
 
         if(isNumber) {
-            todoList.RemoveAt(int.Parse(itemToRemove) - 1);
+            TodoListInFile.RemoveAt(int.Parse(itemToRemove) - 1);
         }
         else {
             Console.WriteLine("Enter index of item you want to remove!");
         }
+
+        WriteToFile.WriteTodoListItemToFile(TodoListInFile, toFile);
     }
 
-    public static void IsComplete(ArrayList todoList, string userInput)
+    public static void IsComplete(List<string> TodoListInFile, string userInput)
     {
         string itemIsComplete = userInput[8..];
 
@@ -42,14 +49,16 @@ public class TodoActions
         bool isNumber = int.TryParse(itemIsComplete, out number);
 
         if(isNumber) {
-            todoList[int.Parse(itemIsComplete) - 1] = todoList[int.Parse(itemIsComplete) - 1] + " --DONE";
+            TodoListInFile[int.Parse(itemIsComplete) - 1] = TodoListInFile[int.Parse(itemIsComplete) - 1] + " --DONE";
         }
         else {
             Console.WriteLine("Enter index of item you want to complete!");
-        }  
+        }
+
+        WriteToFile.WriteTodoListItemToFile(TodoListInFile, toFile);  
     }
 
-    public static void EditItem(ArrayList todoList, string userInput)
+    public static void EditItem(List<string> TodoListInFile, string userInput)
     {
         string itemToEdit = userInput[4..];
         int number;
@@ -59,17 +68,19 @@ public class TodoActions
         if(isNumber) {
             Console.Write("Enter new item: ");
             var editedItem = Console.ReadLine();
-            todoList[int.Parse(itemToEdit) - 1] = editedItem;
+            TodoListInFile[int.Parse(itemToEdit) - 1] = editedItem;
         }
         else {
             Console.WriteLine("Enter index of item you want to edit!");
         }
+
+        WriteToFile.WriteTodoListItemToFile(TodoListInFile, toFile); 
     }
 
-    public static int TaskIsDone(ArrayList todoList, int completed)
+    public static int TaskIsDone(List<string> TodoListInFile, int completed)
     {
 
-        foreach (string item in todoList)
+        foreach (string item in TodoListInFile)
         {
             if (item.Contains("--DONE"))
             {
@@ -79,7 +90,7 @@ public class TodoActions
         return completed;
     }
 
-    public static void ShowItems(ArrayList todoList)
+    public static void ShowItems(List<string> todoList)
     {
         for (int i = 0; i < todoList.Count; i++)
         {
@@ -87,7 +98,7 @@ public class TodoActions
         }
     }
 
-    public static int CountTasks(ArrayList todoList, int tasks)
+    public static int CountTasks(List<string> todoList, int tasks)
     {
         foreach (string item in todoList)
         {
@@ -96,5 +107,4 @@ public class TodoActions
 
         return tasks;
     }
-
 }
